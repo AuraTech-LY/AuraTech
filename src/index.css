@@ -1,0 +1,165 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-[#141414] text-white relative font-inter overflow-x-hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-inter font-semibold tracking-tight;
+  }
+
+  h1 {
+    @apply text-4xl md:text-6xl leading-[1.1];
+  }
+
+  h2 {
+    @apply text-3xl font-bold leading-tight;
+  }
+
+  p {
+    @apply font-inter text-base leading-relaxed;
+  }
+}
+
+/* Grid and glow container */
+.grid-background {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Grid lines */
+.grid-background::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, rgba(159, 115, 193, 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(159, 115, 193, 0.1) 1px, transparent 1px);
+  background-size: 4rem 4rem;
+  mask-image: radial-gradient(ellipse at center, transparent 20%, black 80%);
+}
+
+/* Purple glow */
+.grid-background::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(159, 115, 193, 0.15) 0%, transparent 70%);
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-white/5 backdrop-blur-lg border border-white/10 hover:bg-[#9F73C1]/90 
+    text-white px-6 py-3 rounded-full transition-all duration-300 font-medium tracking-wide
+    active:scale-95 touch-none;
+  }
+  
+  .nav-link {
+    @apply hover:text-[#9F73C1] transition-colors duration-300 font-medium tracking-wide;
+  }
+  
+  .service-card {
+    @apply p-6 sm:p-8 rounded-2xl border border-white/10 hover:border-[#9F73C1] 
+    transition-all duration-300 bg-white/5 backdrop-blur-lg;
+  }
+
+  .form-input {
+    @apply w-full p-4 bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl 
+    focus:border-[#9F73C1] focus:outline-none transition-all duration-300 font-inter
+    text-base sm:text-lg;
+  }
+}
+
+/* Mobile menu animation */
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(-1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Background glow animation */
+@keyframes float {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg) translate(100px) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg) translate(100px) rotate(-360deg);
+  }
+}
+
+.animate-in {
+  animation: slide-in 0.2s ease-out;
+}
+
+/* Scroll reveal animations */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.scroll-reveal.reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger children animations */
+.stagger-children > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.stagger-children.reveal > *:nth-child(1) { transition-delay: 0.1s; }
+.stagger-children.reveal > *:nth-child(2) { transition-delay: 0.2s; }
+.stagger-children.reveal > *:nth-child(3) { transition-delay: 0.3s; }
+
+.stagger-children.reveal > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Better touch interactions */
+@media (hover: none) {
+  .btn-primary:active {
+    transform: scale(0.95);
+  }
+}
+
+/* Swiper customization */
+.swiper {
+  padding: 2rem 0;
+}
+
+.swiper-slide {
+  width: 100%;
+  max-width: 900px;
+  opacity: 0.4;
+  transform: scale(0.8);
+  transition: all 0.3s ease;
+}
+
+.swiper-slide-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #9F73C1 !important;
+}
+
+.swiper-pagination-bullet {
+  background: #9F73C1 !important;
+}
